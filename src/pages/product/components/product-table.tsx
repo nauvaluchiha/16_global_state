@@ -16,7 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
 import { AppDispatch } from "@/stores/store";
 
@@ -43,7 +42,10 @@ export const ProductTable = React.memo(() => {
 
   let tabel;
   if (status === "loading") {
-    tabel = <Skeleton className="w-[100px] h-[20px] rounded-full" />;
+    tabel = 
+      <div className="flex justify-center items-center h-24">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
   } else if (status === "succeeded") {
     tabel = <TableComponent />;
   } else if (status === "failed") {
