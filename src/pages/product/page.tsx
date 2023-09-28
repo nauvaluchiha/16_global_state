@@ -23,7 +23,7 @@ export default function Products() {
           <AddButton showForm={showForm} setShowForm={setShowForm} />
         </div>
       </div>
-      <div className={ showForm ? "block" : "hidden" }>{<ProductForm />}</div>
+      <div className={ showForm ? "block" : "hidden" }>{<ProductForm dataId="" isEditable={false} />}</div>
       <ProductTable />
     </Main>
   );

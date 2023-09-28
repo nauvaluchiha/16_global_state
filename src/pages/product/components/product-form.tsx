@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { addProduct, selectProducts } from "@/stores/product-data";
+import { addProduct, editProduct, selectProducts } from "@/stores/product-data";
 import photo from "/assets/product-sample.jpg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -39,19 +39,20 @@ import {
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function ProductForm() {
+export function ProductForm({ dataId, isEditable }: { dataId: string; isEditable: boolean }) {
   const dispatch = useDispatch();
   const dataProduct: Products[] = useSelector(selectProducts);
-  const id = dataProduct.length + 1;
+  const no = dataProduct.length + 1;
   const [modalMessage, setModalMessage] = useState({
     title: "",
     description: "",
   });
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       id: uuidv4(),
-      no: id,
+      no: no,
       name: "",
       category: undefined,
       image: undefined,
@@ -62,26 +63,42 @@ export function ProductForm() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    data.no = id;
+    if (!dataId) {
+      data.id = uuidv4();
+    } else {
+      data.id = dataId;
+    }
+    data.no = no;
     const image = data.image[0];
     data.image = URL.createObjectURL(image) as unknown as FileList;
-    dispatch(addProduct(data));
+    if (!isEditable) {
+      setModalMessage({
+        title: "Add Product Success",
+        description: "Your product has been added",
+      });
+      dispatch(addProduct(data));
+    } else {
+      setModalMessage({
+        title: "Edit Product Success",
+        description: "Your product has been changed",
+      });
+      dispatch(editProduct(data));
+    }
+
   }
 
   useEffect(() => {
-    form.formState.isSubmitted &&
-      !form.formState.isSubmitSuccessful &&
+    !form.formState.isSubmitSuccessful && !isEditable &&
       setModalMessage({
         title: "Failed",
         description: "Your product has not been added",
       });
-    form.formState.isSubmitted &&
-      form.formState.isSubmitSuccessful &&
+    !form.formState.isSubmitSuccessful && isEditable &&
       setModalMessage({
-        title: "Success",
-        description: "Your product has been added",
+        title: "Failed",
+        description: "Your product has not been changed",
       });
-  }, [form.formState.isSubmitted, form.formState.isSubmitSuccessful]);
+  }, [form.formState.isSubmitSuccessful, isEditable]);
 
   return (
     <Form {...form}>
@@ -140,8 +157,18 @@ export function ProductForm() {
                     disabled={form.formState.isSubmitting}
                     {...field}
                     onChange={(event) => {
-                      const image = document.getElementById("image") as HTMLImageElement;
-                      image.src = URL.createObjectURL(event.target.files![0]);
+                      if (!isEditable) {
+                        const image_1 = document
+                          .getElementsByClassName("image-preview")
+                          .item(0) as HTMLImageElement;
+                        image_1.src = URL.createObjectURL(event.target.files![0]);
+                      } else {
+                        const image_2 = document
+                          .getElementsByClassName("image-preview")
+                          .item(1) as HTMLImageElement;
+                        image_2.src = URL.createObjectURL(event.target.files![0]);
+                      }
+
                       const dataTransfer = new DataTransfer();
 
                       Array.from(event.target.files!).forEach((image) => {
@@ -157,7 +184,7 @@ export function ProductForm() {
               )}
             />
             <div className="flex justify-center mt-2">
-              <img id="image" src={photo} alt="product sample" className="h-48" />
+              <img src={photo} alt="product sample" className="h-48 image-preview" />
             </div>
           </div>
           <div className="hidden sm:inline-block w-[1px] h-auto bg-black"></div>

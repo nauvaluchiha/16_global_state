@@ -1,6 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteBtn } from "./ui/delete-btn";
 import { ShowBtn } from "./ui/show-btn";
+import { EditBtn } from "./ui/edit-btn";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -19,7 +20,7 @@ export const columns: ColumnDef<Products>[] = [
   {
     accessorKey: "no",
     header: "No",
-  },
+  }, 
   {
     accessorKey: "name",
     header: "Name",
@@ -57,15 +58,15 @@ export const columns: ColumnDef<Products>[] = [
     },
   },
   {
-    header: "Delete",
+    header: "Action",
     cell: ({ row }) => {
-      return <DeleteBtn id={row.original.id} />;
-    },
-  },
-  {
-    header: "Show",
-    cell: ({ row }) => {
-      return <ShowBtn id={row.original.id} />;
+      return (
+        <div className="flex justify-center gap-2">
+          <ShowBtn id={row.original.id} />
+          <DeleteBtn id={row.original.id}/>
+          <EditBtn id={row.original.id}/>
+        </div>
+      );
     },
   },
 ];

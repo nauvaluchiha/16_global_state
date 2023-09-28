@@ -42,10 +42,11 @@ export const ProductTable = React.memo(() => {
 
   let tabel;
   if (status === "loading") {
-    tabel = 
-      <div className="flex justify-center items-center h-24">
+    tabel = (
+      <div className="flex justify-center items-center h-48">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
       </div>
+    );
   } else if (status === "succeeded") {
     tabel = <TableComponent />;
   } else if (status === "failed") {
@@ -57,7 +58,7 @@ export const ProductTable = React.memo(() => {
       <div className="border-[1px] border-black rounded-lg">{tabel}</div>
       <div className="text-center mt-4">
         <h2 className="text-base font-mono">
-          <strong>API</strong>
+          <strong>API: </strong>
           <Link
             to="https://mocki.io/v1/cd86a97f-1f9c-4828-853b-4085dac3aff9"
             className="text-blue-400"
@@ -65,10 +66,13 @@ export const ProductTable = React.memo(() => {
             https://mocki.io/v1/cd86a97f-1f9c-4828-853b-4085dac3aff9
           </Link>
         </h2>
+
+        <h5 className="mt-5">legends once said...</h5>
+        <blockquote className="italic text-indigo-600 font-semibold">blazingly fast!</blockquote>
         <h5 className="mt-12">
           Made by <span className="text-red-500">Naufaln</span> with{" "}
-          <span className="underline">
-            React, Tailwind, Shadcn, React Hook Form, Zod, TypeScript
+          <span className="underline text-emerald-500">
+            React, Tailwind, Shadcn, React Hook Form, Zod, Redux, TypeScript, and ❤
           </span>
         </h5>
       </div>
