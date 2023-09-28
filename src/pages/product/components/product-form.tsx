@@ -84,7 +84,6 @@ export function ProductForm({ dataId, isEditable }: { dataId: string; isEditable
       });
       dispatch(editProduct(data));
     }
-
   }
 
   useEffect(() => {
@@ -125,7 +124,7 @@ export function ProductForm({ dataId, isEditable }: { dataId: string; isEditable
               control={form.control}
               name="category"
               render={({ field }) => (
-                <FormItem className="max-w-[300px] mx-auto sm:max-w-none">
+                <FormItem className="max-w-[300px] mx-auto sm:max-w-none mt-1">
                   <FormLabel>Category</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
@@ -147,7 +146,7 @@ export function ProductForm({ dataId, isEditable }: { dataId: string; isEditable
             <FormField
               name="image"
               render={({ field: { onChange }, ...field }) => (
-                <FormItem className="max-w-[300px] mx-auto sm:max-w-none">
+                <FormItem className="max-w-[300px] mx-auto sm:max-w-none mt-1">
                   <FormLabel>Image of Product</FormLabel>
                   <Input
                     id="product-image"

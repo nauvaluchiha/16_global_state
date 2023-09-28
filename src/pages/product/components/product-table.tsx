@@ -61,7 +61,7 @@ export const ProductTable = React.memo(() => {
           <strong>API: </strong>
           <Link
             to="https://mocki.io/v1/cd86a97f-1f9c-4828-853b-4085dac3aff9"
-            className="text-blue-400"
+            className="text-blue-400 text-sm sm:text-lg"
           >
             https://mocki.io/v1/cd86a97f-1f9c-4828-853b-4085dac3aff9
           </Link>
@@ -69,12 +69,13 @@ export const ProductTable = React.memo(() => {
 
         <h5 className="mt-5">legends once said...</h5>
         <blockquote className="italic text-indigo-600 font-semibold">blazingly fast!</blockquote>
-        <h5 className="mt-12">
-          Made by <span className="text-red-500">Naufaln</span> with{" "}
-          <span className="underline text-emerald-500">
+        <h5 className="mt-12 text-sm">
+          Made by <span className="text-red-500 text-sm">Naufal Nasrullah</span> with{" "}
+          <span className="underline text-emerald-500 text-sm">
             React, Tailwind, Shadcn, React Hook Form, Zod, Redux, TypeScript, and ❤
           </span>
         </h5>
+        <h6 className="text-xs mt-2">⚠️ please contact me if you found any bug ⚠️</h6>
       </div>
     </div>
   );
