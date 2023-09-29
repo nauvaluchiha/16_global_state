@@ -30,7 +30,7 @@ export function EditBtn({ id }: { id: string }) {
           </svg>
         </Button>
       </DialogTrigger>
-      <DialogContent className="top-[50%] max-w-5xl pb-0 px-0 overflow-y-auto h-screen sm:h-fit">
+      <DialogContent className="top-[50%] max-w-5xl pb-0 px-0 overflow-y-auto h-[calc(90vh)] sm:h-fit">
         <DialogHeader className="min-w-[260px] px-2">
           <DialogTitle className="text-center">Edit Product</DialogTitle>
           <DialogDescription>
